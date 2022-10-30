@@ -147,4 +147,10 @@ publishing {
             artifact javadocJar
         }
     }
+    repositories {
+        maven {
+            name = 'mcbans.public'
+            url = 'https://jenkins.mcbans.com/plugin/pipez-corelib/'
+        }
+    }
 }
