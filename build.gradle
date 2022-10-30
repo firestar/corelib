@@ -153,7 +153,7 @@ publishing {
         maven {
             credentials {
                 username = "jenkins"
-                password = "${jenkins_password}"
+                password = "$System.env.jenkins_password"
             }
             name = 'henkelmax.public'
             url = 'https://nexus.mcbans.com/repository/modded_mc/'
