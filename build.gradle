@@ -11,6 +11,7 @@ buildscript {
 // Plugin to use the settings.xml for authentication
 plugins {
     id 'net.linguica.maven-settings' version '0.5'
+    id 'maven-publish'
 }
 
 
@@ -140,18 +141,23 @@ artifacts {
     archives sourcesJar
 }
 
-uploadArchives {
-  def nexusUser = "jenkins"
-  def nexusPassword = "${jenkins_password}"
-
-  repositories {
-    mavenDeployer {
-        repository(url: 'https://nexus.mcbans.com/repository/modded_mc/') {
-            authentication(userName: nexusUser, password: nexusPassword);
-        }
-        snapshotRepository(url: 'https://nexus.mcbans.com/repository/modded_mc/') {
-            authentication(userName: nexusUser, password: nexusPassword);
+publishing {
+    def nexusPassword = "${jenkins_password}"
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+            artifact apiJar
+            artifact javadocJar
         }
     }
-  }
+    repositories {
+        maven {
+            credentials {
+                username = "jenkins"
+                password = nexusPassword
+            }
+            name = 'henkelmax.public'
+            url = 'https://nexus.mcbans.com/repository/modded_mc/'
+        }
+    }
 }
