@@ -146,7 +146,7 @@ publishing {
     repositories {
         maven {
             name = 'henkelmax.public'
-            url = 'https://maven.maxhenkel.de/repository/public'
+            url = './maven_repo'
         }
     }
 }
