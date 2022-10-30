@@ -13,6 +13,7 @@ plugins {
     id 'net.linguica.maven-settings' version '0.5'
 }
 
+
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven-publish'
 
@@ -139,18 +140,18 @@ artifacts {
     archives sourcesJar
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-            artifact apiJar
-            artifact javadocJar
+uploadArchives {
+  def nexusUser = "jenkins"
+  def nexusPassword = "${jenkins_password}"
+
+  repositories {
+    mavenDeployer {
+        repository(url: 'https://nexus.mcbans.com/repository/modded_mc/') {
+            authentication(userName: nexusUser, password: nexusPassword);
+        }
+        snapshotRepository(url: 'https://nexus.mcbans.com/repository/modded_mc/') {
+            authentication(userName: nexusUser, password: nexusPassword);
         }
     }
-    repositories {
-        maven {
-            name = 'mcbans.public'
-            url = './maven3/'
-        }
-    }
+  }
 }
