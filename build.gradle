@@ -144,6 +144,9 @@ artifacts {
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            groupId = mod_packagename
+            artifactId = mod_id
+            version = mod_version
             artifact jar
             artifact apiJar
             artifact javadocJar
